@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
+    {% block include_css %}
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.min.css">
+    {% endblock %}
+</head>
+
+<body>
+{% block page_menu %}
+    <div></div>
+{% endblock %}
+
+{% block page_content %}
+<div></div>
+{% endblock %}
+
+{% block page_foot %}
+<div></div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/plugin/jquery.js"/>
+{% endblock %}
+</body>
+</html>
