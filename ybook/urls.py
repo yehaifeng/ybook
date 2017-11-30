@@ -19,5 +19,5 @@ from cmds import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^query/', views.query.as.views()),
+    url(r'^query/', views.bookInfo.Query.as_view()),
 ]
