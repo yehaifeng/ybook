@@ -65,11 +65,13 @@ def MarkPage(baseurl, currentPage, totalPage):
         else:
             temp = "<a href='%s%d'>%d</a>" % (baseurl, i, i)
         pager_list.append(temp)
+
     if currentPage >= totalPage:
         next = "<a href='#'>下一页</a>"
     else:
         next = "<a href='%s%d'>下一页</a>" % (baseurl, currentPage + 1)
     pager_list.append(next)
+
     if currentPage >= totalPage:
         last = "<a href=''>末页</a>"
     else:
