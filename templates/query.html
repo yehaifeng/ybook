@@ -5,6 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-
+<div>
+    <table>
+        {% for item in book_dict %}
+        <tr>
+            <th>{{ item.name }}</th>
+            <th>{{ item.author }}</th>
+            <th>{{ item.translator }}</th>
+            <th>{{ item.publisher }}</th>
+            <th>{{ item.publish_date }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 </body>
 </html>
