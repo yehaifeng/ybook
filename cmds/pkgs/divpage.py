@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# _*_coding:urf:8_*_
+# _*_coding:utf:8_*_
 
 from django.utils.safestring import mark_safe
 
