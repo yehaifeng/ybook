@@ -18,3 +18,5 @@ class BOOK_INFO(models.Model):
 
     class Meta:
         db_table = 'BOOK_INFO'
+        verbose_name = '书本信息'
+        verbose_name_plural = verbose_name
