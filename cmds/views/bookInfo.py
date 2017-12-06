@@ -22,6 +22,7 @@ class Query(View):
             tmp_dict['publish_date'] = q.book_publish_date
             book_list.append(tmp_dict)
         # book_dict = model_to_dict(book_list)
-        render(request, 'query.html', context=book_list)
+        book_dict = {'book_list':book_list}
+        return render(request, 'query.html', context=book_dict)
     def post(self):
         pass
