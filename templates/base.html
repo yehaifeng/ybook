@@ -12,7 +12,11 @@
 
 <body>
 {% block page_menu %}
-    <div></div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
 {% endblock %}
 
 {% block page_content %}
@@ -20,7 +24,11 @@
 {% endblock %}
 
 {% block page_foot %}
-<div></div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            版权所有@叶海丰
+        </div>
+    </nav>
 {% endblock %}
 
 {% block script %}
