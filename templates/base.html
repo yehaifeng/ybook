@@ -83,8 +83,18 @@
     </div> <!-- /container -->
 {% endblock %}
 
+
+
+{% block script %}
+    <script src="/static/mainbody.js"></script>
+    <script src="https://use.fontawesome.com/80ceda9450.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+{#    <script src="/static/plugin/jquery.js"/>#}
+{% endblock %}
+
 {% block page_foot %}
-    <footer id="footer" class="footer">
+    <footer class="footer">
         <hr/>
         <div class="container">
 {#            <div class="row footer-top">#}
@@ -142,13 +152,6 @@
 {#        </div>#}
 {#    </nav>#}
 {% endblock %}
-
-{% block script %}
-    <script src="/static/mainbody.js"></script>
-    <script src="https://use.fontawesome.com/80ceda9450.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-{#    <script src="/static/plugin/jquery.js"/>#}
-{% endblock %}
 </body>
+
 </html>
