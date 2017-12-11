@@ -77,14 +77,14 @@ WSGI_APPLICATION = 'ybook.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ybook',
-        'USER': 'root',
-        'PASSWORD': '111111',
-        'HOST': '192.168.9.216',
-        'PORT': 3306,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'ybook',
+        # 'USER': 'root',
+        # 'PASSWORD': '111111',
+        # 'HOST': 'db.ybook.com',
+        # 'PORT': 3306,
     }
 }
 

@@ -7,7 +7,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="ybook">
     <meta name="author" content="yehaifeng">
-    <link rel="icon" href="../../favicon.ico">
+{#    <link rel="icon" href="../../favicon.ico">#}
 
     {% block title %}
         <title>Title</title>
@@ -83,18 +83,17 @@
     </div> <!-- /container -->
 {% endblock %}
 
-
-
 {% block script %}
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="/static/mainbody.js"></script>
     <script src="https://use.fontawesome.com/80ceda9450.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 {#    <script src="/static/plugin/jquery.js"/>#}
 {% endblock %}
+</body>
 
 {% block page_foot %}
-    <footer class="footer">
+    <footer class="foot fixed-bottom">
         <hr/>
         <div class="container">
 {#            <div class="row footer-top">#}
@@ -152,6 +151,9 @@
 {#        </div>#}
 {#    </nav>#}
 {% endblock %}
-</body>
+
+
+
+
 
 </html>
