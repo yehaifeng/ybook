@@ -21,4 +21,18 @@ $(function (){
     }
     footerPosition();
     $(window).resize(footerPosition);
+
+    $('#qbook').click(function () {
+        var querybookname = $('#exampleInputName2').val();
+        $.ajax({
+            url: '/query/',
+            type: 'POST',
+            // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
+            data: {'querybookname':querybookname},
+            dataType: 'json',
+            success: function () {
+                console.log(this.data)
+            },
+        });
+    });
 });

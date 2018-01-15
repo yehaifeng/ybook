@@ -2,7 +2,7 @@
 {% block page_content %}
 <div class="container">
     <!-- query form for book informatiom -->
-    <form class="form-inline">
+    <form class="form-inline"> {{ csrf_token }}
         <div class="form-group">
             <label for="exampleInputName2">书名</label>
             <input type="text" class="form-control" id="exampleInputName2" placeholder="人类简史">
@@ -11,7 +11,7 @@
             <label for="exampleInputEmail2">作者</label>
             <input type="text" class="form-control" id="exampleInputName2" placeholder="叶海丰">
         </div>
-        <button type="submit" class="btn btn-default">查询</button>
+        <button type="button" class="btn btn-default" id="qbook">查询</button>
     </form>
 
     <div class="blank">
@@ -27,7 +27,7 @@
             <th>出版时间</th>
         </tr>
         {% for item in book_list %}
-        <tr>
+        <tr id="displayinfo">
             <th>{{ item.name }}</th>
             <th>{{ item.author }}</th>
             <th>{{ item.translator }}</th>
