@@ -33,10 +33,12 @@ class Query(View):
                 valuelist = request.POST.getlist(key)[0]
                 data_dict[key] = valuelist
             # data_dict = request.POST.dict
-        # print(data_dict['querybookname'])
-        ret_queryset = models.BOOK_INFO.objects.filter(book_name=data_dict['querybookname']).values('book_name', 'book_author', 'book_translator', 'book_publisher')
+        if valuelist != '':
+            ret_queryset = models.BOOK_INFO.objects.filter(book_name=data_dict['querybookname']).values('book_name', 'book_author', 'book_translator', 'book_publisher')
+        else:
+            ret_queryset = models.BOOK_INFO.objects.all()[:10].values('book_name', 'book_author', 'book_translator', 'book_publisher')
+
         for i in ret_queryset:
-            print(type(i), i, )
             ret_data.append(i)
         print(type(ret_data), json.dumps(ret_data))
-        return HttpResponse(json.dumps(data_dict))
+        return HttpResponse(json.dumps(ret_data))

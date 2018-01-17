@@ -18,7 +18,7 @@
         <hr />
     </div>
 
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered" id="displaytable">
         <tr style="text-align: center;background-color: cadetblue">
             <th>书名</th>
             <th>作者</th>
@@ -27,7 +27,7 @@
             <th>出版时间</th>
         </tr>
         {% for item in book_list %}
-        <tr id="displayinfo">
+        <tr class="displayinfo">
             <th>{{ item.name }}</th>
             <th>{{ item.author }}</th>
             <th>{{ item.translator }}</th>

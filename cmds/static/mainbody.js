@@ -9,14 +9,14 @@
 
 $(function (){
     function footerPosition(){
-        $("footer").removeClass("fixed-bottom");
+        $("footer").removeClass("fixed-bodataom");
         var contentHeight = document.body.scrollHeight,//网页正文全文高度
             winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
         if(!(contentHeight > winHeight)){
-            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
-            $("footer").addClass("fixed-bottom");
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bodataom
+            $("footer").addClass("fixed-bodataom");
         } else {
-            $("footer").removeClass("fixed-bottom");
+            $("footer").removeClass("fixed-bodataom");
         }
     }
     footerPosition();
@@ -24,15 +24,33 @@ $(function (){
 
     $('#qbook').click(function () {
         var querybookname = $('#exampleInputName2').val();
+        console.log(typeof querybookname);
         $.ajax({
             url: '/query/',
             type: 'POST',
             // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
             data: {'querybookname':querybookname},
-            dataType: 'json',
-            success: function () {
-                console.log(this.data)
-            },
+            dataType: "json",
+            success: function (data) {
+                $(".displayinfo").remove();
+                for (index in data) {
+                    var tr = $("<tr></tr>");
+                    tr.addClass("displayinfo");
+                    var info = data[index];
+                    var td_bookname = $("<td></td>").text(info.book_name);
+                    var td_bookauthor = $("<td></td>").text(info.book_author);
+                    var td_booktraslator = $("<td></td>").text(info.book_translator);
+                    var td_bookpulisher = $("<td></td>").text(info.book_publisher);
+                    var td_update = $("<td></td>").text("");
+                    tr.append(td_bookname);
+                    tr.append(td_bookauthor);
+                    tr.append(td_booktraslator);
+                    tr.append(td_bookpulisher);
+                    tr.append(td_update);
+                    $("#displaytable").append(tr);
+                }
+                console.log(data);
+            }
         });
     });
 });
