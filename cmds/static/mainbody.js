@@ -22,7 +22,48 @@ $(function (){
     footerPosition();
     $(window).resize(footerPosition);
 
-    $('#qbook').click(function () {
+
+    // $('#qbook').click(function queryf() {
+    //     var bookname = $('#bookname').val();
+    //     var author = $('#author').val();
+    //     console.log(bookname, author);
+    //     $.ajax({
+    //         url: '/query/',
+    //         type: 'POST',
+    //         // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
+    //         data: {'querybookname':bookname, 'queryauthor':author},
+    //         dataType: "json",
+    //         success: function (data) {
+    //             $(".displayinfo").remove();
+    //             for (index in data) {
+    //                 var tr = $("<tr></tr>");
+    //                 tr.addClass("displayinfo");
+    //                 var info = data[index];
+    //                 var td_bookname = $("<td></td>").text(info.book_name);
+    //                 var td_bookauthor = $("<td></td>").text(info.book_author);
+    //                 var td_booktraslator = $("<td></td>").text(info.book_translator);
+    //                 var td_bookpulisher = $("<td></td>").text(info.book_publisher);
+    //                 var td_update = $("<td></td>").text("");
+    //                 tr.append(td_bookname);
+    //                 tr.append(td_bookauthor);
+    //                 tr.append(td_booktraslator);
+    //                 tr.append(td_bookpulisher);
+    //                 tr.append(td_update);
+    //                 $("#displaytable").append(tr);
+    //             }
+    //             console.log(data);
+    //         }
+    //     });
+    // });
+    $("#qbook").click(function () {queryf();});
+    $(window).keydown(function (e) {
+        if(e.which==13){
+            queryf();
+        }
+    });
+});
+
+    var queryf = function () {
         var bookname = $('#bookname').val();
         var author = $('#author').val();
         console.log(bookname, author);
@@ -30,7 +71,7 @@ $(function (){
             url: '/query/',
             type: 'POST',
             // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
-            data: {'querybookname':bookname, 'queryauthor':author},
+            data: {'querybookname': bookname, 'queryauthor': author},
             dataType: "json",
             success: function (data) {
                 $(".displayinfo").remove();
@@ -53,5 +94,4 @@ $(function (){
                 console.log(data);
             }
         });
-    });
-});
+    };
