@@ -23,13 +23,14 @@ $(function (){
     $(window).resize(footerPosition);
 
     $('#qbook').click(function () {
-        var querybookname = $('#exampleInputName2').val();
-        console.log(typeof querybookname);
+        var bookname = $('#bookname').val();
+        var author = $('#author').val();
+        console.log(bookname, author);
         $.ajax({
             url: '/query/',
             type: 'POST',
             // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
-            data: {'querybookname':querybookname},
+            data: {'querybookname':bookname, 'queryauthor':author},
             dataType: "json",
             success: function (data) {
                 $(".displayinfo").remove();

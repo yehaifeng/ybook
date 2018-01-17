@@ -26,17 +26,18 @@ class Query(View):
         book_dict = {'book_list':book_list}
         return render(request, 'query.html', context=book_dict)
     def post(self, request):
-        data_dict = {}
+        req_dict = {}
         ret_data = []
         if request.is_ajax() and request.method == 'POST':
             for key in request.POST:
-                valuelist = request.POST.getlist(key)[0]
-                data_dict[key] = valuelist
+                value = request.POST.getlist(key)[0]
+                req_dict[key] = value
             # data_dict = request.POST.dict
-        if valuelist != '':
-            ret_queryset = models.BOOK_INFO.objects.filter(book_name=data_dict['querybookname']).values('book_name', 'book_author', 'book_translator', 'book_publisher')
-        else:
+        if req_dict['querybookname'] == '' and req_dict['queryauthor'] == '':
             ret_queryset = models.BOOK_INFO.objects.all()[:10].values('book_name', 'book_author', 'book_translator', 'book_publisher')
+
+        else:
+            ret_queryset = models.BOOK_INFO.objects.filter(book_name__contains=req_dict['querybookname'], book_author__contains=req_dict['queryauthor']).values('book_name', 'book_author', 'book_translator', 'book_publisher')
 
         for i in ret_queryset:
             ret_data.append(i)
