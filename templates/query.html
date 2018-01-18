@@ -12,7 +12,87 @@
             <input type="text" class="form-control" id="author" placeholder="叶海丰">
         </div>
         <button type="button" class="btn btn-default" id="qbook">查询</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">添加</button>
     </form>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					    &times;
+				    </button>
+				    <h4 class="modal-title" id="myModalLabel">
+					    模态框（Modal）标题
+				    </h4>
+			    </div>
+			    <div class="modal-body">
+                    <form class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="sizing-addon1" class="col-sm-2 control-label addbook-modal" >书名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control modal-data" name="qbookname" id="sizing-addon1" placeholder="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon2" class="col-sm-2 control-label">作者</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control modal-data" name="qauthor" id="sizing-addon2" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon3" class="col-sm-2 control-label">译者</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control modal-data" name="qtranslator" id="sizing-addon3" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon4" class="col-sm-2 control-label">页数</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control modal-data" name="qpage" id="sizing-addon4" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon5" class="col-sm-2 control-label">出版社</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control modal-data" name="qpublisher" id="sizing-addon5" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon6" class="col-sm-2 control-label">类别</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control modal-data" name="qclass" id="sizing-addon6" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon7" class="col-sm-2 control-label">出版时间</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control modal-data" name="qpublishdate" id="sizing-addon7" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon8" class="col-sm-2 control-label">购买时间</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control modal-data" name="qbuydate" id="sizing-addon8" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizing-addon9" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="3" class="from-control modal-data" name="qdescription" id="sizing-addon9" placeholder="Password"></textarea>
+                            </div>
+                        </div>
+                    </form>
+			    </div>
+			    <div class="modal-footer">
+				    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				    <button type="button" id="addbook" class="btn btn-primary" data-dismiss="modal">提交更改</button>
+			    </div>
+		    </div><!-- /.modal-content -->
+	    </div>
+    </div><!-- /.modal -->
+    <!-- 模态框（Modal） -->
 
     <div class="blank">
         <hr />
