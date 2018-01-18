@@ -4,6 +4,7 @@ from django.views.generic import View
 from django.shortcuts import render, HttpResponse
 from cmds import models
 import json
+from django.template import RequestContext
 from django.forms.models import model_to_dict
 from cmds.pkgs.divpage import MarkPage,PageInfo
 

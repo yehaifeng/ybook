@@ -2,7 +2,7 @@
 {% block page_content %}
 <div class="container">
     <!-- query form for book informatiom -->
-    <form class="form-inline"> {{ csrf_token }}
+    <form class="form-inline"> {% csrf_token %}
         <div class="form-group">
             <label for="bookname">书名</label>
             <input type="text" class="form-control" id="bookname" placeholder="人类简史">

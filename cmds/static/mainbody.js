@@ -55,9 +55,10 @@ $(function (){
     //         }
     //     });
     // });
+
     $("#qbook").click(function () {queryf();});
     $(window).keydown(function (e) {
-        if(e.which==13){
+        if(e.which == 13){
             queryf();
         }
     });
@@ -70,7 +71,8 @@ $(function (){
         $.ajax({
             url: '/query/',
             type: 'POST',
-            // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
+            // headers: {'X-CSRFTOKEN': {{ csrf_token }} },
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
             data: {'querybookname': bookname, 'queryauthor': author},
             dataType: "json",
             success: function (data) {
@@ -95,3 +97,14 @@ $(function (){
             }
         });
     };
+
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return unescape(arr[2]);
+    else
+        return null;
+}
