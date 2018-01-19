@@ -13,6 +13,12 @@ class Query(View):
     def __init__(self):
         pass
     def get(self, request):
+        print(type(request.GET), request.GET)
+        for k in request.GET:
+            if k == 'flag':
+                if request.GET[k] == 2:
+                    print(request.GET[k])
+            print(k,request.GET[k])
         book_qs = models.BOOK_INFO.objects.all()[:10]
         book_list = []
         for q in book_qs:
@@ -29,11 +35,14 @@ class Query(View):
     def post(self, request):
         req_dict = {}
         ret_data = []
-        if request.is_ajax() and request.method == 'POST':
+        if request.method == 'POST':
+        # if request.is_ajax() and request.method == 'POST':
             for key in request.POST:
                 value = request.POST.getlist(key)[0]
                 req_dict[key] = value
-            # data_dict = request.POST.dict
+        print(req_dict)
+        if req_dict['flag'] == '2':
+            return HttpResponse(json.dumps(req_dict))
         if req_dict['querybookname'] == '' and req_dict['queryauthor'] == '':
             ret_queryset = models.BOOK_INFO.objects.all()[:10].values('book_name', 'book_author', 'book_translator', 'book_publisher')
 
