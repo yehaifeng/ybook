@@ -13,12 +13,12 @@ class Query(View):
     def __init__(self):
         pass
     def get(self, request):
-        print(type(request.GET), request.GET)
-        for k in request.GET:
-            if k == 'flag':
-                if request.GET[k] == 2:
-                    print(request.GET[k])
-            print(k,request.GET[k])
+        # print(type(request.GET), request.GET)
+        # for k in request.GET:
+        #     if k == 'flag':
+        #         if request.GET[k] == 2:
+        #             print(request.GET[k])
+        #     print(k,request.GET[k])
         book_qs = models.BOOK_INFO.objects.all()[:10]
         book_list = []
         for q in book_qs:
@@ -39,10 +39,26 @@ class Query(View):
         # if request.is_ajax() and request.method == 'POST':
             for key in request.POST:
                 value = request.POST.getlist(key)[0]
-                req_dict[key] = value
+                if key == 'flag':
+                    flag = value
+                else:
+                    req_dict[key] = value
         print(req_dict)
-        if req_dict['flag'] == '2':
-            return HttpResponse(json.dumps(req_dict))
+        if flag and flag == '2':
+            bookins = models.BOOK_INFO()
+            bookins.book_name = req_dict['qbookname']
+            bookins.book_author = req_dict['qauthor']
+            bookins.book_translator = req_dict['qtranslator']
+            bookins.book_publisher = req_dict['qpublisher']
+            bookins.book_class = req_dict['qclass']
+            bookins.book_publish_date = req_dict['qpublishdate']
+            bookins.book_buy_date = req_dict['qbuydate']
+            bookins.book_description = req_dict['qdescription']
+            n = bookins.save()
+            # n = models.BOOK_INFO.objects.create()
+            # print(n)
+            return HttpResponse("OK")
+
         if req_dict['querybookname'] == '' and req_dict['queryauthor'] == '':
             ret_queryset = models.BOOK_INFO.objects.all()[:10].values('book_name', 'book_author', 'book_translator', 'book_publisher')
 

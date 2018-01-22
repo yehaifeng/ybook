@@ -63,17 +63,21 @@ $(function (){
         }
     });
     $("#addbook").click(function () {
+
         var params = $("#addbook-form").serializeArray();
         var values = {};
         for( x in params ){
             values[params[x].name] = params[x].value;
         }
         values["flag"] = 2;
-        var idata = JSON.stringify(values);
+
+        // var idata = JSON.stringify(values);
         // alert(idata);
         $.post("/query/", values, function (data) {
             alert(data);
         });
+        $('#myModal').modal('hide')
+        $("#addbook-form")[0].reset();
         // $("#myModal").hide();
         // $.ajax({
         //     url: '/query/',
@@ -98,7 +102,7 @@ $(function (){
             type: 'POST',
             // headers: {'X-CSRFTOKEN': {{ csrf_token }} },
             headers: { "X-CSRFToken": getCookie("csrftoken") },
-            data: {'querybookname': bookname, 'queryauthor': author},
+            data: {'querybookname': bookname, 'queryauthor': author, 'flag': 1},
             dataType: "json",
             success: function (data) {
                 $(".displayinfo").remove();
