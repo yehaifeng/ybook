@@ -13,9 +13,12 @@
         <title>Title</title>
     {% endblock %}
 
-    {% block include_css %}
+    {% block css-base %}
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/mainbody.css"/>
+    {% endblock %}
+    {% block css-extend %}
+{#        add for owner#}
     {% endblock %}
 </head>
 
@@ -83,12 +86,14 @@
     </div> <!-- /container -->
 {% endblock %}
 
-{% block script %}
+{% block script-base %}
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="/static/mainbody.js"></script>
     <script src="https://use.fontawesome.com/80ceda9450.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-{#    <script src="/static/plugin/jquery.js"/>#}
+    <script src="//cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+{% endblock %}
+{% block script-extend %}
+{#    add for owner#}
 {% endblock %}
 </body>
 

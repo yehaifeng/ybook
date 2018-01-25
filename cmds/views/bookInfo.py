@@ -3,7 +3,7 @@
 from django.views.generic import View
 from django.shortcuts import render, HttpResponse
 from cmds import models
-import json
+import json, time, datetime
 from django.template import RequestContext
 from django.forms.models import model_to_dict
 from cmds.pkgs.divpage import MarkPage,PageInfo
@@ -19,10 +19,11 @@ class Query(View):
         #         if request.GET[k] == 2:
         #             print(request.GET[k])
         #     print(k,request.GET[k])
-        book_qs = models.BOOK_INFO.objects.all()[:10]
+        book_qs = models.BOOK_INFO.objects.all().order_by('-book_id')[:10]
         book_list = []
         for q in book_qs:
             tmp_dict = {}
+            tmp_dict['id'] = q.book_id
             tmp_dict['name'] = q.book_name
             tmp_dict['author'] = q.book_author
             tmp_dict['translator'] = q.book_translator
@@ -45,6 +46,7 @@ class Query(View):
                     req_dict[key] = value
         print(req_dict)
         if flag and flag == '2':
+            # add book
             bookins = models.BOOK_INFO()
             bookins.book_name = req_dict['qbookname']
             bookins.book_author = req_dict['qauthor']
@@ -58,14 +60,23 @@ class Query(View):
             # n = models.BOOK_INFO.objects.create()
             # print(n)
             return HttpResponse("OK")
+        elif flag == '3':
+            # del book
+            print(req_dict['id'])
+            models.BOOK_INFO.objects.filter(book_id=req_dict['id']).delete()
+            return HttpResponse(0)
 
         if req_dict['querybookname'] == '' and req_dict['queryauthor'] == '':
-            ret_queryset = models.BOOK_INFO.objects.all()[:10].values('book_name', 'book_author', 'book_translator', 'book_publisher')
+            ret_queryset = models.BOOK_INFO.objects.all().order_by('-book_id')[:10].values('book_id', 'book_name', 'book_author', 'book_translator', 'book_publisher', 'book_publish_date')
 
         else:
-            ret_queryset = models.BOOK_INFO.objects.filter(book_name__contains=req_dict['querybookname'], book_author__contains=req_dict['queryauthor']).values('book_name', 'book_author', 'book_translator', 'book_publisher')
+            ret_queryset = models.BOOK_INFO.objects.filter(book_name__contains=req_dict['querybookname'], book_author__contains=req_dict['queryauthor']).values('book_id', 'book_name', 'book_author', 'book_translator', 'book_publisher', 'book_publish_date')
 
         for i in ret_queryset:
+            itmp = i['book_publish_date'].timetuple()
+            i['book_publish_date'] = itmp
+            i['book_publish_date'] = time.mktime(itmp)
             ret_data.append(i)
-        print(type(ret_data), json.dumps(ret_data))
+        print(itmp, i['book_publish_date'])
+        print(type(ret_data[0]['book_publish_date']))
         return HttpResponse(json.dumps(ret_data))

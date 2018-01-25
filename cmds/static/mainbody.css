@@ -58,3 +58,7 @@ body{
     position: fixed;
     bottom: 0;
 }
+
+.wh_col {
+    background-color: azure;
+}

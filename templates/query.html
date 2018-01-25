@@ -23,7 +23,7 @@
 					    &times;
 				    </button>
 				    <h4 class="modal-title" id="myModalLabel">
-					    模态框（Modal）标题
+					    添加书籍
 				    </h4>
 			    </div>
 
@@ -102,21 +102,34 @@
 
     <table class="table table-hover table-bordered" id="displaytable">
         <tr style="text-align: center;background-color: cadetblue">
+{#            <th>ID</th>#}
             <th>书名</th>
             <th>作者</th>
             <th>译者</th>
             <th>出版社</th>
             <th>出版时间</th>
+            <th>操作</th>
         </tr>
         {% for item in book_list %}
-        <tr class="displayinfo">
+        <tr class="displayinfo" id="bookid_{{ item.id }}">
+            <th class="book-id" style="display: none">{{ item.id }}</th>
             <th>{{ item.name }}</th>
             <th>{{ item.author }}</th>
             <th>{{ item.translator }}</th>
             <th>{{ item.publisher }}</th>
             <th>{{ item.publish_date }}</th>
+            <th>
+                <button type="button" class="btn btn-danger del-button" onclick="delBook({{ item.id }})">
+{#                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>#}
+                    删除
+                </button>
+            </th>
         </tr>
         {% endfor %}
     </table>
 </div>
+{% endblock %}
+
+{% block script-extend %}
+    <script src="/static/mainbody.js"></script>
 {% endblock %}

@@ -1,12 +1,4 @@
-// function ct(){
-//     return document.compatMode == "BackCompat"? document.body.clientHeight:document.documentElement.clientHeight;
-//   }
-//   var f=document.getElementById('footer');
-//   (window.onresize=function(){
-//     f.style.position=document.body.scrollHeight>ct()?'':'absolute';
-//   })();
-
-
+//for URL '/query/'
 $(function (){
     function footerPosition(){
         $("footer").removeClass("fixed-bodataom");
@@ -22,46 +14,15 @@ $(function (){
     footerPosition();
     $(window).resize(footerPosition);
 
-
-    // $('#qbook').click(function queryf() {
-    //     var bookname = $('#bookname').val();
-    //     var author = $('#author').val();
-    //     console.log(bookname, author);
-    //     $.ajax({
-    //         url: '/query/',
-    //         type: 'POST',
-    //         // headers: {'X-CSRFTOKEN': '{{ csrf_token }}' },
-    //         data: {'querybookname':bookname, 'queryauthor':author},
-    //         dataType: "json",
-    //         success: function (data) {
-    //             $(".displayinfo").remove();
-    //             for (index in data) {
-    //                 var tr = $("<tr></tr>");
-    //                 tr.addClass("displayinfo");
-    //                 var info = data[index];
-    //                 var td_bookname = $("<td></td>").text(info.book_name);
-    //                 var td_bookauthor = $("<td></td>").text(info.book_author);
-    //                 var td_booktraslator = $("<td></td>").text(info.book_translator);
-    //                 var td_bookpulisher = $("<td></td>").text(info.book_publisher);
-    //                 var td_update = $("<td></td>").text("");
-    //                 tr.append(td_bookname);
-    //                 tr.append(td_bookauthor);
-    //                 tr.append(td_booktraslator);
-    //                 tr.append(td_bookpulisher);
-    //                 tr.append(td_update);
-    //                 $("#displaytable").append(tr);
-    //             }
-    //             console.log(data);
-    //         }
-    //     });
-    // });
-
+    // 查询书信息的操作
     $("#qbook").click(function () {queryf();});
     $(window).keydown(function (e) {
         if(e.which == 13){
             queryf();
         }
     });
+
+    // 添加书信息的操作
     $("#addbook").click(function () {
 
         var params = $("#addbook-form").serializeArray();
@@ -74,26 +35,23 @@ $(function (){
         // var idata = JSON.stringify(values);
         // alert(idata);
         $.post("/query/", values, function (data) {
-            alert(data);
+            // alert(data);
+            $('#myModal').modal('hide');
+            $("#addbook-form")[0].reset();
+            queryf();
         });
-        $('#myModal').modal('hide')
-        $("#addbook-form")[0].reset();
-        // $("#myModal").hide();
-        // $.ajax({
-        //     url: '/query/',
-        //     type: 'POST',
-        //     // headers: {'X-CSRFTOKEN': {{ csrf_token }} },
-        //     headers: {"X-CSRFToken": getCookie("csrftoken")},
-        //     data: idata,
-        //     dataType: "json",
-        //     success: function (data) {
-        //         console.log(data);
-        //     }
-        // });
-    });
-});
 
-    var queryf = function () {
+    });
+
+    // $(".del-button").click(function () {
+    //     var a = $(this).text();
+    //     var b = $(this).parent().siblings(".book-id").text();
+    //     console.log("OK");
+    //     alert(b);
+    // });
+
+    // 使用ajax发送查询书信息请求的函数
+    function queryf() {
         var bookname = $('#bookname').val();
         var author = $('#author').val();
         console.log(bookname, author);
@@ -108,27 +66,65 @@ $(function (){
                 $(".displayinfo").remove();
                 for (index in data) {
                     var tr = $("<tr></tr>");
-                    tr.addClass("displayinfo");
                     var info = data[index];
+                    var book_pub_date = dateConvert(info.book_publish_date);
+                    var td_id = $("<td class='book-id'></td>").text(info.book_id).hide();
                     var td_bookname = $("<td></td>").text(info.book_name);
                     var td_bookauthor = $("<td></td>").text(info.book_author);
                     var td_booktraslator = $("<td></td>").text(info.book_translator);
                     var td_bookpulisher = $("<td></td>").text(info.book_publisher);
-                    var td_update = $("<td></td>").text("");
+                    var td_update = $("<td></td>").text(book_pub_date);
+                    var del_button = $("<button type='button'></button>");
+                    // del_button.type('button');
+                    del_button.addClass('btn btn-danger del-button');
+                    del_button.attr('onclick', 'delBook(' + info.book_id + ');');
+                    del_button.text("删除");
+                    var td_options = $("<td></td>").append(del_button);
+                    tr.append(td_id);
                     tr.append(td_bookname);
                     tr.append(td_bookauthor);
                     tr.append(td_booktraslator);
                     tr.append(td_bookpulisher);
                     tr.append(td_update);
+                    tr.append(td_options);
+                    tr.attr('id', 'bookid_' + info.book_id);
+                    tr.addClass("displayinfo");
                     $("#displaytable").append(tr);
                 }
                 console.log(data);
             }
         });
-    };
+    }
 
-function getCookie(name)
-{
+});
+
+// 删除书信息请求
+function delBook(id) {
+    // alert(id);
+    var bookid = "bookid_" + id;
+    // $("#" + bookid).hide();
+    $.ajax({
+        url: '/query/',
+        type: 'POST',
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        data: {'id': id, 'flag': 3},
+        dataType: "json",
+        success: function (ret) {
+            if (ret == 0) {
+                // alert("SUCCESS");
+                // var bookid = "bookid_" + id;
+                $("#" + bookid).hide();
+            } else {
+                alert("FAILED");
+            }
+        },
+        error: function (err) {
+            alert("err");
+        }
+    });
+}
+
+function getCookie(name) {
     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 
     if(arr=document.cookie.match(reg))
@@ -137,3 +133,15 @@ function getCookie(name)
     else
         return null;
 }
+
+//时间格式转换函数
+function dateConvert(dt) {
+    var dt = dt * 1000;
+    var da = new Date(dt);
+    var year = da.getFullYear()+'年';
+    var month = da.getMonth()+1+'月';
+    var date = da.getDate()+'日';
+    var rda = [year,month,date].join('');
+    return rda
+}
+
