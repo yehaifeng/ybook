@@ -1,5 +1,6 @@
 //for URL '/query/'
 $(function (){
+    //控制页脚位置的函数
     function footerPosition(){
         $("footer").removeClass("fixed-bodataom");
         var contentHeight = document.body.scrollHeight,//网页正文全文高度
@@ -11,6 +12,7 @@ $(function (){
             $("footer").removeClass("fixed-bodataom");
         }
     }
+    //执行页脚位置的函数
     footerPosition();
     $(window).resize(footerPosition);
 
@@ -124,11 +126,10 @@ function delBook(id) {
     });
 }
 
+//获取csrf的cookie信息
 function getCookie(name) {
     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-
-    if(arr=document.cookie.match(reg))
-
+    if(arr = document.cookie.match(reg))
         return unescape(arr[2]);
     else
         return null;
@@ -138,10 +139,10 @@ function getCookie(name) {
 function dateConvert(dt) {
     var dt = dt * 1000;
     var da = new Date(dt);
-    var year = da.getFullYear()+'年';
-    var month = da.getMonth()+1+'月';
-    var date = da.getDate()+'日';
-    var rda = [year,month,date].join('');
+    var year = da.getFullYear();
+    var month = da.getMonth()+1;
+    var date = da.getDate();
+    var rda = [year,month,date].join('-');
     return rda
 }
 

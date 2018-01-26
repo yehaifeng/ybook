@@ -28,7 +28,9 @@ class Query(View):
             tmp_dict['author'] = q.book_author
             tmp_dict['translator'] = q.book_translator
             tmp_dict['publisher'] = q.book_publisher
-            tmp_dict['publish_date'] = q.book_publish_date
+            # tmp_dict['publish_date'] = q.book_publish_date
+            # tmpt = q.book_publish_date.timetuple()
+            tmp_dict['publish_date'] = time.strftime('%Y-%m-%d', q.book_publish_date.timetuple())
             book_list.append(tmp_dict)
         # book_dict = model_to_dict(book_list)
         book_dict = {'book_list':book_list}
