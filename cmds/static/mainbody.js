@@ -19,7 +19,7 @@ $(function (){
     // 查询书信息的操作
     $("#qbook").click(function () {queryf();});
     $(window).keydown(function (e) {
-        if(e.which == 13){
+        if(e.which = 13){
             queryf();
         }
     });
