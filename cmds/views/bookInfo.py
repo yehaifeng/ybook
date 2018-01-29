@@ -55,12 +55,16 @@ class Query(View):
             bookins.book_translator = req_dict['qtranslator']
             bookins.book_publisher = req_dict['qpublisher']
             bookins.book_class = req_dict['qclass']
-            bookins.book_publish_date = req_dict['qpublishdate']
+            if req_dict['qpublishdate'] == '':
+                bookins.book_publish_date = None
+            else:
+                bookins.book_publish_date = req_dict['qpublishdate']
             bookins.book_buy_date = req_dict['qbuydate']
             bookins.book_description = req_dict['qdescription']
             n = bookins.save()
             # n = models.BOOK_INFO.objects.create()
             # print(n)
+            print(bookins)
             return HttpResponse("OK")
         elif flag == '3':
             # del book
